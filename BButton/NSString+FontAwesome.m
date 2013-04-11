@@ -50,7 +50,11 @@ static const NSArray *awesomeStrings;
 - (NSString *)trimWhitespace
 {
     NSMutableString *str = [self mutableCopy];
-    CFStringTrimWhitespace((__bridge CFMutableStringRef)str);
+#if __has_feature(objc_arc)
+	CFStringTrimWhitespace((__bridge CFMutableStringRef)str);
+#else
+	CFStringTrimWhitespace((CFMutableStringRef)str);
+#endif
     return str;
 }
 

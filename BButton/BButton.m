@@ -159,8 +159,14 @@
 #pragma mark - Setters
 - (void)setColor:(UIColor *)newColor
 {
-    color = newColor;
-    
+#if __has_feature(objc_arc)
+	color = newColor;
+#else
+	if (color)
+		[color release];
+	color = [newColor retain];
+#endif
+	
     if([newColor isLightColor]) {
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self setTitleShadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.6f] forState:UIControlStateNormal];
@@ -339,7 +345,11 @@
     NSArray *newGradientColors = [NSArray arrayWithObjects:(id)topColor.CGColor, (id)self.color.CGColor, nil];
     CGFloat newGradientLocations[] = {0.0f, 1.0f};
     
+#if __has_feature(objc_arc)
     gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)newGradientColors, newGradientLocations);
+#else
+    gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)newGradientColors, newGradientLocations);
+#endif
     CGColorSpaceRelease(colorSpace);
 }
 
