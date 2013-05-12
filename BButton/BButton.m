@@ -285,17 +285,16 @@
     CGFloat shadowBlurRadius = 2.0f;
     
     // Rounded Rectangle Drawing
-    UIBezierPath *roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.5f, 0.5f, rect.size.width-1.0f, rect.size.height-1.0f)
+    UIBezierPath *roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.5f + rect.origin.x, 0.5f + rect.origin.y, rect.size.width-1.0f, rect.size.height-1.0f)
                                                                     cornerRadius:6.0f];
     
     CGContextSaveGState(context);
     
     [roundedRectanglePath addClip];
-    
     CGContextDrawLinearGradient(context,
                                 self.gradient,
-                                CGPointMake(0.0f, self.highlighted ? rect.size.height - 0.5f : 0.5f),
-                                CGPointMake(0.0f, self.highlighted ? 0.5f : rect.size.height - 0.5f), 0.0f);
+                                CGPointMake(rect.origin.x, self.highlighted ? rect.origin.y + rect.size.height - 0.5f : rect.origin.y),
+                                CGPointMake(rect.origin.x, self.highlighted ? 0.5f : rect.origin.y + rect.size.height - 0.5f), rect.origin.y);
     
     CGContextRestoreGState(context);
     
