@@ -61,7 +61,6 @@
 {
     self.backgroundColor = [UIColor clearColor];
     self.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.0f);
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     self.shouldShowDisabled = NO;
     [self setType:BButtonTypeDefault];
 }
@@ -104,6 +103,7 @@
     self = [super initWithFrame:frame];
     if(self) {
         [self setup];
+        self.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     }
     return self;
 }
@@ -217,7 +217,7 @@
     
     NSString *title = [NSString stringWithFormat:@"%@", iconString];
     
-    if(![self.titleLabel.text isEmpty]) {
+    if(self.titleLabel.text && ![self.titleLabel.text isEmpty]) {
         if(before)
             title = [title stringByAppendingFormat:@" %@", self.titleLabel.text];
         else
