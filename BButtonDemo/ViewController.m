@@ -16,8 +16,6 @@
 
 @end
 
-
-
 @implementation ViewController
 
 #pragma mark - View lifecycle
@@ -26,6 +24,8 @@
     [super viewDidLoad];
     
     BButtonType type = 0;
+    
+    NSArray *icons = FAICON_ARRAY;
     
     for(int i = 0; i < 2; i++) {
         
@@ -41,7 +41,8 @@
             
             type++;
             if(type > BButtonTypeGray) {
-                btn = [BButton awesomeButtonWithOnlyIcon:arc4random() % 209
+                NSNumber *icon = [icons objectAtIndex:(arc4random() % icons.count)];
+                btn = [BButton awesomeButtonWithOnlyIcon: [icon intValue]
                                                     type:(type % 2) ? BButtonTypeInverse : BButtonTypeDefault];
                 
                 btn.frame = CGRectMake(frame.origin.x, frame.origin.y, btn.frame.size.width, btn.frame.size.width);
