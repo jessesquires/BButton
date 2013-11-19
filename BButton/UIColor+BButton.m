@@ -126,7 +126,7 @@
 
 - (UIColor *)bb_lightenColorWithValue:(CGFloat)value
 {
-    int totalComponents = CGColorGetNumberOfComponents(self.CGColor);
+    unsigned long totalComponents = CGColorGetNumberOfComponents(self.CGColor);
     BOOL isGreyscale = (totalComponents == 2) ? YES : NO;
     
     CGFloat *oldComponents = (CGFloat *)CGColorGetComponents(self.CGColor);
@@ -157,7 +157,7 @@
 
 - (UIColor *)bb_darkenColorWithValue:(CGFloat)value
 {
-    int totalComponents = CGColorGetNumberOfComponents(self.CGColor);
+    unsigned long totalComponents = CGColorGetNumberOfComponents(self.CGColor);
     BOOL isGreyscale = (totalComponents == 2) ? YES : NO;
     
     CGFloat *oldComponents = (CGFloat *)CGColorGetComponents(self.CGColor);
@@ -188,7 +188,7 @@
 
 - (BOOL)bb_isLightColor
 {
-    int totalComponents = CGColorGetNumberOfComponents(self.CGColor);
+    unsigned long totalComponents = CGColorGetNumberOfComponents(self.CGColor);
     BOOL isGreyscale = (totalComponents == 2) ? YES : NO;
     
     CGFloat *components = (CGFloat *)CGColorGetComponents(self.CGColor);
