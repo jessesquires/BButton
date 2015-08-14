@@ -487,14 +487,14 @@ static CGFloat const kBButtonCornerRadiusV3 = 4.0f;
     CGContextSaveGState(*context);
     
     UIColor *fill = (!self.highlighted) ? self.color : [self.color bb_darkenColorWithValue:0.06f];
-    if (!self.enabled) {
+    if (!self.enabled && self.shouldShowDisabled) {
         [fill bb_desaturatedColorToPercentSaturation:0.60f];
     }
     
     CGContextSetFillColorWithColor(*context, fill.CGColor);
     
     UIColor *border = (!self.highlighted) ? [self.color bb_darkenColorWithValue:0.06f] : [self.color bb_darkenColorWithValue:0.12f];
-    if (!self.enabled) {
+    if (!self.enabled && self.shouldShowDisabled) {
         [border bb_desaturatedColorToPercentSaturation:0.60f];
     }
     
