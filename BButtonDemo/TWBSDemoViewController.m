@@ -54,7 +54,7 @@
 
 - (void)buttonPressed:(UIButton *)sender
 {
-    NSLog(@"Good jorb, you pressed a button: %@", sender.titleLabel.text);
+    NSLog(@"Good job, you pressed a button: %@", sender.titleLabel.text);
 }
 
 - (NSString *)titleForType:(BButtonType)type
