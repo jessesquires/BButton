@@ -237,21 +237,26 @@ static CGFloat const kBButtonCornerRadiusV3 = 4.0f;
 - (void)addAwesomeIcon:(FAIcon)icon beforeTitle:(BOOL)before
 {
     NSString *iconString = [NSString fa_stringForFontAwesomeIcon:icon];
-    self.titleLabel.font = [UIFont fontWithName:kFontAwesomeFont
-                                           size:self.titleLabel.font.pointSize];
-    
-    NSString *title = [NSString stringWithFormat:@"%@", iconString];
+    UIFont *awesomeFont = [UIFont fontWithName:kFontAwesomeFont size:self.titleLabel.font.pointSize];
+    NSDictionary *awesomeFontAttributes = [NSDictionary dictionaryWithObject:awesomeFont forKey:NSFontAttributeName];
+    NSMutableAttributedString *attributedIcon = [[NSMutableAttributedString alloc] initWithString:iconString attributes:awesomeFontAttributes];
     
     if(self.titleLabel.text && ![self isStringEmpty:self.titleLabel.text]) {
+        NSDictionary *titleFontAttributes = [NSDictionary dictionaryWithObject:self.titleLabel.font forKey:NSFontAttributeName];
+        NSMutableAttributedString *attributedTitle;
         if(before) {
-            title = [title stringByAppendingFormat:@" %@", self.titleLabel.text];
+            attributedTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", self.titleLabel.text] attributes:titleFontAttributes];
+            [attributedTitle insertAttributedString:attributedIcon atIndex:0];
         }
         else {
-            title = [NSString stringWithFormat:@"%@ %@", self.titleLabel.text, iconString];
+            attributedTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", self.titleLabel.text] attributes:titleFontAttributes];
+            [attributedTitle appendAttributedString:attributedIcon];
         }
+        [self setAttributedTitle:attributedTitle forState:UIControlStateNormal];
     }
-    
-    [self setTitle:title forState:UIControlStateNormal];
+    else {
+        [self setAttributedTitle:attributedIcon forState:UIControlStateNormal];
+    }
 }
 
 + (UIColor *)colorForButtonType:(BButtonType)type style:(BButtonStyle)style
